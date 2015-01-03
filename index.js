@@ -25,7 +25,7 @@ Injector.prototype.injectTo = function (tm) {
     // TODO: The label gets updated (uncomment the following
     // line to confirm this). However, the foreground color
     // does not get set.
-    tm.items[index].label = '<Updated Label>';
+    //tm.items[index].label = '<Updated Label>';
     var oldFgColor = tm.colors.fg;
     tm.colors.fg = self.fgi;
     tm._drawRow(index);
