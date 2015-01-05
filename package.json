@@ -22,5 +22,8 @@
   "bugs": {
     "url": "https://github.com/sampathsris/terminal-menu-disabler/issues"
   },
-  "homepage": "https://github.com/sampathsris/terminal-menu-disabler"
+  "homepage": "https://github.com/sampathsris/terminal-menu-disabler",
+  "dependencies": {
+     "inherits": "~2.0.0"
+  }
 }
