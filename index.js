@@ -14,13 +14,12 @@ function Injector(opts) {
 inherits(Injector, EventEmitter);
 
 Injector.prototype.injectTo = function (tm) {
-  var self = this;
-  
   // TODO: prevent multiple injections
   
-  // save _drawRow function and wrap it with code to change
-  // foreground color for disabled items
-  var old_drawRow = tm._drawRow;
+  var self = this,
+      old__drawRow = tm._drawRow,
+      old_on = tm.on;
+  
   tm._drawRow = function (index) {
     var isDisabled = self.disabled.indexOf(this.items[index].label) !== -1;
     var oldFg = this.colors.fg;
@@ -29,7 +28,7 @@ Injector.prototype.injectTo = function (tm) {
       this.colors.fg = self.fgi;
     }
     
-    old_drawRow.call(this, index);
+    old__drawRow.call(this, index);
     
     if (isDisabled) {
       this.colors.fg = oldFg;
@@ -39,14 +38,23 @@ Injector.prototype.injectTo = function (tm) {
   // save the onselect callback for future use. Replace
   // it with a function and route execution if the selected
   // item is not a disabled item.
+  /*
   var l = tm.listeners('select');
   tm.removeAllListeners('select');
   l.forEach(function (e) {
     self.on('selectmirror', e);
-  });
+  });*/
   tm.on('select', function (label, selected) {
     if (self.disabled.indexOf(label) == -1) {
       self.emit('selectmirror', label, selected);
     }
   });
+  
+  tm.on = function (type, listener) {
+    if (type === 'select') {
+      self.on('selectmirror', listener);
+    } else {
+      old_on.call(this, type, listener);
+    }
+  }
 };

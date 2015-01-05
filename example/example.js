@@ -7,7 +7,7 @@ var disabler = require('../')({
   disabled: [
     'Self Distruct'
   ]
-});
+}).injectTo(menu);
 
 menu.reset();
 menu.write('MARVIN\'S TODO LIST\n');
@@ -26,5 +26,3 @@ menu.on('select', function (label) {
   console.log('Marvin will ' + label.toLowerCase() + ' now!');
 });
 menu.createStream().pipe(process.stdout);
-
-disabler.injectTo(menu);
