@@ -16,28 +16,25 @@ inherits(Injector, EventEmitter);
 Injector.prototype.injectTo = function (tm) {
   var self = this;
   
-  tm.disable = function (label) {
-    var index;
+  // TODO: prevent multiple injections
+  
+  // save _drawRow function and wrap it with code to change
+  // foreground color for disabled items
+  var old_drawRow = tm._drawRow;
+  tm._drawRow = function (index) {
+    var isDisabled = self.disabled.indexOf(this.items[index].label) !== -1;
+    var oldFg = this.colors.fg;
     
-    for (var i = 0; i < tm.items.length; i++) {
-      if (tm.items[i].label == label) {
-        index = i;
-        break;
-      }
+    if (isDisabled) {
+      this.colors.fg = self.fgi;
     }
     
-    // TODO: The label gets updated (uncomment the following
-    // line to confirm this). However, the foreground color
-    // does not get set.
-    //tm.items[index].label = '<Updated Label>';
+    old_drawRow.call(this, index);
     
-    var oldFgColor = tm.colors.fg;
-    tm.colors.fg = self.fgi;
-    tm._drawRow(index);
-    tm.colors.fg = oldFgColor;
-    
-  }
-  
+    if (isDisabled) {
+      this.colors.fg = oldFg;
+    }
+  };
   
   // save the onselect callback for future use. Replace
   // it with a function and route execution if the selected
@@ -52,8 +49,4 @@ Injector.prototype.injectTo = function (tm) {
       self.emit('selectmirror', label, selected);
     }
   });
-  
-  self.disabled.forEach(function (element) {
-    tm.disable(element);
-  });
-}
+};
