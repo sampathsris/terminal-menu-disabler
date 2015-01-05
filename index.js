@@ -21,6 +21,7 @@ function Injector(tm, opts) {
   }
   
   tm._drawRow = function (index) {
+    index = (index + this.items.length) % this.items.length;
     var isDisabled = !this.items[index].enabled;
     var oldFg = this.colors.fg;
     
