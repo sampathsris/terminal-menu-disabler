@@ -38,12 +38,6 @@ Injector.prototype.injectTo = function (tm) {
   // save the onselect callback for future use. Replace
   // it with a function and route execution if the selected
   // item is not a disabled item.
-  /*
-  var l = tm.listeners('select');
-  tm.removeAllListeners('select');
-  l.forEach(function (e) {
-    self.on('selectmirror', e);
-  });*/
   tm.on('select', function (label, selected) {
     if (self.disabled.indexOf(label) == -1) {
       self.emit('selectmirror', label, selected);
