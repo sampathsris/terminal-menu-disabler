@@ -75,11 +75,11 @@ function Injector(tm, opts) {
     }
   }
   
-  tm.enableMenu = function (item) {
+  tm.enableMenuItem = function (item) {
     _enable.call(this, item, true);
   }
   
-  tm.disableMenu = function (item) {
+  tm.disableMenuItem = function (item) {
     _enable.call(this, item, false);
   }
 }

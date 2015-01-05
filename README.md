@@ -1,7 +1,6 @@
-terminal-menu-disabler
-======================
+#terminal-menu-disabler
 
-A plugin package for terminal-menu, that enables you to disable given menu items.
+A package that extends [terminal-menu](https://www.npmjs.com/package/terminal-menu), making it capable of enabling/disabling menu items on the fly.
 
 #example
 
@@ -17,7 +16,7 @@ var disabler = require('../')(menu, {
   ]
 });
 
-var sd = 'Self Distruct',
+var sd = 'Self Distruct',#
     esd = 'Enable \'Self Distruct\' (!)';
 
 menu.reset();
@@ -50,17 +49,23 @@ menu.disableMenu(sd);
 
 ```
 var disabler = require('terminal-menu-disabler')
-disabler(terminal_menu, opts);
+disabler(menu, opts);
 ```
 
-- `terminal_menu` is an instance of a terminal menu created with [terminal-menu](https://www.npmjs.com/package/terminal-menu)
+- `menu` is an instance of a terminal menu created with [terminal-menu](https://www.npmjs.com/package/terminal-menu)
 - `opts` is an object, which may have following properties
     - `opts.fgi`: Foreground color for inactive menu items. This also becomes the background color for inactive menu items when it is selected.
     - `opts.disabled`: An array of string literals indicating the menu items to be disabled on startup.
     
+After calling `disabler(menu, opts)`, two functions will be injected to `menu`, which you can use to enable/disable individual menu items.
+
+- `menu.enableMenuItem(item)`
+- `menu.disableMenuItem(item)`
+
+`item` can be a label (string) or a zero based index (number) of a menu item.
+    
 #installation
 
-I expect to publish this on [npm](https://www.npmjs.com), when that happens:
 ```
 npm install terminal-menu-disabler
 ```

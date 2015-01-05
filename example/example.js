@@ -31,12 +31,12 @@ menu.add('EXIT');
 
 menu.on('select', function (label) {
   if (label === esd) {
-    menu.enableMenu(sd);
-    menu.disableMenu(esd);
+    menu.enableMenuItem(sd);
+    menu.disableMenuItem(esd);
   } else {
     menu.close();
     console.log('Marvin will ' + label.toLowerCase() + ' now!');
   }
 });
 menu.createStream().pipe(process.stdout);
-menu.disableMenu(sd);
+menu.disableMenuItem(sd);

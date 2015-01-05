@@ -1,7 +1,7 @@
 {
   "name": "terminal-menu-disabler",
   "version": "0.1.0",
-  "description": "A plugin package for terminal-menu, that enables you to disable given menu items.",
+  "description": "A package that extends terminal-menu, making it capable of enabling/disabling menu items on the fly.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -17,7 +17,11 @@
     "enable",
     "disable"
   ],
-  "author": "Sampath Sitinamaluwa",
+  "author": {
+    "name": "Sampath Sitinamaluwa",
+    "email": "sampathsris@gmail.com",
+    "url": "http://sampathsris.github.io/"
+  },
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/sampathsris/terminal-menu-disabler/issues"
