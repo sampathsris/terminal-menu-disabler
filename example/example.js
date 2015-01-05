@@ -3,11 +3,11 @@ var menu = require('terminal-menu')({
   x: 2,
   y: 2
 });
-var disabler = require('../')({
+var disabler = require('../')(menu, {
   disabled: [
     'Self Distruct'
   ]
-}).injectTo(menu);
+});
 
 menu.reset();
 menu.write('MARVIN\'S TODO LIST\n');

@@ -1,24 +1,17 @@
 var EventEmitter = require('events').EventEmitter;
 var inherits = require('inherits');
 
-module.exports = function (opts) {
-  return new Injector(opts || {});
+module.exports = function (tm, opts) {
+  return new Injector(tm, opts || {});
 };
 
-function Injector(opts) {
-  var self = this;
-  self.fgi = opts.fgi || 'cyan';
-  self.disabled = opts.disabled || [];
-}
-
-inherits(Injector, EventEmitter);
-
-Injector.prototype.injectTo = function (tm) {
-  // TODO: prevent multiple injections
-  
+function Injector(tm, opts) {
   var self = this,
       old__drawRow = tm._drawRow,
       old_on = tm.on;
+  
+  self.fgi = opts.fgi || 'cyan';
+  self.disabled = opts.disabled || [];
   
   tm._drawRow = function (index) {
     var isDisabled = self.disabled.indexOf(this.items[index].label) !== -1;
@@ -51,4 +44,6 @@ Injector.prototype.injectTo = function (tm) {
       old_on.call(this, type, listener);
     }
   }
-};
+}
+
+inherits(Injector, EventEmitter);
