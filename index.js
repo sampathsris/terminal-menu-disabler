@@ -1,5 +1,4 @@
 var EventEmitter = require('events').EventEmitter;
-var inherits = require('inherits');
 
 module.exports = function (tm, opts) {
   return new Injector(tm, opts || {});
@@ -56,7 +55,7 @@ function Injector(tm, opts) {
   var _enable = function (item, enable) {
     var menuItem, index;
     
-    if (typeof item === "string") {
+    if (typeof item === 'string') {
       for (var i = 0; i < this.items.length; i++) {
         if (this.items[i].label === item) {
           index = i;
@@ -84,4 +83,4 @@ function Injector(tm, opts) {
   }
 }
 
-inherits(Injector, EventEmitter);
+require('util').inherits(Injector, EventEmitter);
