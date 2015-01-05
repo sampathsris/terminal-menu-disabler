@@ -7,14 +7,21 @@ module.exports = function (tm, opts) {
 
 function Injector(tm, opts) {
   var self = this,
+      old_add = tm.add,
       old__drawRow = tm._drawRow,
       old_on = tm.on;
   
   self.fgi = opts.fgi || 'cyan';
   self.disabled = opts.disabled || [];
   
+  tm.add = function (label, cb) {
+    old_add.call(this, label, cb);
+    var enabled = self.disabled.indexOf(label) === -1;
+    this.items[this.items.length - 1].enabled = enabled;
+  }
+  
   tm._drawRow = function (index) {
-    var isDisabled = self.disabled.indexOf(this.items[index].label) !== -1;
+    var isDisabled = !this.items[index].enabled;
     var oldFg = this.colors.fg;
     
     if (isDisabled) {
