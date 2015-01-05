@@ -40,7 +40,7 @@ function Injector(tm, opts) {
   // it with a function and route execution if the selected
   // item is not a disabled item.
   tm.on('select', function (label, selected) {
-    if (self.disabled.indexOf(label) == -1) {
+    if (this.items[selected].enabled) {
       self.emit('selectmirror', label, selected);
     }
   });
@@ -51,6 +51,36 @@ function Injector(tm, opts) {
     } else {
       old_on.call(this, type, listener);
     }
+  }
+  
+  var _enable = function (item, enable) {
+    var menuItem, index;
+    
+    if (typeof item === "string") {
+      for (var i = 0; i < this.items.length; i++) {
+        if (this.items[i].label === item) {
+          index = i;
+          break;
+        }
+      }
+    } else if (typeof item === 'number') {
+      index = item % this.items.length;
+    }
+    
+    menuItem = this.items[index];
+    
+    if (menuItem.enabled !== enable) {
+      menuItem.enabled = enable;
+      this._drawRow(index);
+    }
+  }
+  
+  tm.enableMenu = function (item) {
+    _enable.call(this, item, true);
+  }
+  
+  tm.disableMenu = function (item) {
+    _enable.call(this, item, false);
   }
 }
 
