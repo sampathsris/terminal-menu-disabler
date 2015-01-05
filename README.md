@@ -6,7 +6,7 @@ A package that extends [terminal-menu](https://www.npmjs.com/package/terminal-me
 
 ```
 var menu = require('terminal-menu')({ width: 30, x: 2, y: 2 });
-var disabler = require('../')(menu, {
+var disabler = require('terminal-menu-disabler')(menu, {
   // uncomment following line to make forground
   // color of disabled menu items red
   // fgi: 'red',
