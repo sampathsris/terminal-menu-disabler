@@ -16,7 +16,7 @@ var disabler = require('terminal-menu-disabler')(menu, {
   ]
 });
 
-var sd = 'Self Distruct',#
+var sd = 'Self Distruct',
     esd = 'Enable \'Self Distruct\' (!)';
 
 menu.reset();
