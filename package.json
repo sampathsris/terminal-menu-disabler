@@ -1,6 +1,6 @@
 {
   "name": "terminal-menu-disabler",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "A package that extends terminal-menu, making it capable of enabling/disabling menu items on the fly.",
   "main": "index.js",
   "scripts": {
